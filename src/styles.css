@@ -161,18 +161,12 @@ textarea:focus-visible {
   padding-bottom: 0.25rem;
 }
 
-.catalog-state {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  border: 1px solid rgba(15, 118, 110, 0.14);
-  border-radius: 0.5rem;
-  background-color: #f8fbfb;
+.catalog-results {
+  min-height: 520px;
 }
 
-.text-brand {
-  color: var(--brand);
+.skeleton-card {
+  pointer-events: none;
 }
 
 .search-form {
@@ -327,6 +321,10 @@ footer {
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 100%;
+  }
+
+  .catalog-results {
+    min-height: 360px;
   }
 
   .btn-group.flex-wrap .btn {

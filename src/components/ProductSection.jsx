@@ -1,6 +1,34 @@
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 import ProductCard from './ProductCard.jsx'
 
 const filters = ['Todos', 'Notebook', 'Audio', 'Accesorio', 'Gaming']
+const skeletonCards = Array.from({ length: 4 }, (_, index) => index)
+
+function ProductSkeletonGrid() {
+  return (
+    <div className="row g-4" aria-hidden="true">
+      {skeletonCards.map((item) => (
+        <article className="col-sm-6 col-xl-6" key={item}>
+          <div className="card product-card skeleton-card h-100">
+            <Skeleton height={220} borderRadius={0} />
+            <div className="card-body d-flex flex-column">
+              <div className="d-flex justify-content-between align-items-start gap-2 mb-3">
+                <Skeleton width={88} height={24} />
+                <Skeleton width={92} height={24} />
+              </div>
+              <Skeleton height={26} width="72%" className="mb-2" />
+              <Skeleton count={2} />
+              <Skeleton height={18} width="45%" className="my-3" />
+              <Skeleton height={22} width="38%" />
+              <Skeleton height={38} className="mt-4" />
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  )
+}
 
 function ProductSection({
   products,
@@ -69,32 +97,34 @@ function ProductSection({
         </div>
       </div>
 
-      {isLoading ? (
-        <div className="catalog-state" role="status" aria-live="polite">
-          <div className="spinner-border text-brand" aria-hidden="true" />
-          <p className="mb-0 fw-semibold">Cargando productos desde data/products.json...</p>
-        </div>
-      ) : error ? (
-        <div className="alert alert-danger" role="alert">
-          {error}
-        </div>
-      ) : visibleProducts.length === 0 ? (
-        <div className="alert alert-warning" role="status">
-          No hay productos que coincidan con la busqueda o categoria seleccionada.
-        </div>
-      ) : (
-        <div className="row g-4" aria-live="polite">
-          {visibleProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              cartItem={cart.find((item) => item.id === product.id)}
-              onAdd={onAddToCart}
-              onRemove={onRemoveFromCart}
-            />
-          ))}
-        </div>
-      )}
+      <div className={`catalog-results ${isLoading ? 'is-loading' : ''}`}>
+        {isLoading ? (
+          <>
+            <p className="visually-hidden" role="status" aria-live="polite">Cargando productos...</p>
+            <ProductSkeletonGrid />
+          </>
+        ) : error ? (
+          <div className="alert alert-danger" role="alert">
+            {error}
+          </div>
+        ) : visibleProducts.length === 0 ? (
+          <div className="alert alert-warning" role="status">
+            No hay productos que coincidan con la busqueda o categoria seleccionada.
+          </div>
+        ) : (
+          <div className="row g-4" aria-live="polite">
+            {visibleProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                cartItem={cart.find((item) => item.id === product.id)}
+                onAdd={onAddToCart}
+                onRemove={onRemoveFromCart}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </>
   )
 }
