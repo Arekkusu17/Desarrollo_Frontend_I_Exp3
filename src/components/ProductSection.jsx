@@ -28,7 +28,6 @@ function ProductSection({
         <div className="col-lg-8">
           <p className="text-uppercase section-label mb-2">Catalogo React</p>
           <h2 className="h1 fw-bold">Productos destacados</h2>
-          <p className="mb-0 text-muted-custom">Listado cargado dinamicamente desde JSON local con useEffect, estado y eventos de React.</p>
         </div>
         <div className="col-lg-4">
           <p className="catalog-summary mb-0" aria-live="polite">{summary}</p>
