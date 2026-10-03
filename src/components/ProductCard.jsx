@@ -3,6 +3,11 @@ import { formatoCLP } from '../utils/format.js'
 function ProductCard({ product, cartItem, onAdd, onRemove }) {
   const isInCart = Boolean(cartItem)
   const available = cartItem ? cartItem.cantidad < product.stock : true
+  const buttonText = !available
+    ? 'Stock completo'
+    : isInCart
+      ? `Agregar otra unidad (${cartItem.cantidad})`
+      : 'Agregar al carrito'
 
   return (
     <article className="col-sm-6 col-xl-6">
@@ -30,7 +35,7 @@ function ProductCard({ product, cartItem, onAdd, onRemove }) {
               onClick={() => onAdd(product)}
               disabled={!available}
             >
-              {available ? 'Agregar al carrito' : 'Stock agregado'}
+              {buttonText}
             </button>
             {isInCart && (
               <button

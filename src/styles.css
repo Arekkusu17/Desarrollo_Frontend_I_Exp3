@@ -161,6 +161,20 @@ textarea:focus-visible {
   padding-bottom: 0.25rem;
 }
 
+.catalog-state {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(15, 118, 110, 0.14);
+  border-radius: 0.5rem;
+  background-color: #f8fbfb;
+}
+
+.text-brand {
+  color: var(--brand);
+}
+
 .search-form {
   max-width: 760px;
 }

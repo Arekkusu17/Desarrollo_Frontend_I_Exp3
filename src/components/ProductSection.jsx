@@ -9,6 +9,8 @@ function ProductSection({
   search,
   cart,
   statusMessage,
+  isLoading,
+  error,
   onCategoryChange,
   onSearchChange,
   onClearSearch,
@@ -16,7 +18,9 @@ function ProductSection({
   onRemoveFromCart,
 }) {
   const categoryText = category === 'Todos' ? 'todas las categorias' : category
-  const summary = `${visibleProducts.length} producto(s) visibles en ${categoryText}${search ? ' con busqueda activa' : ''}.`
+  const summary = isLoading
+    ? 'Cargando catalogo desde JSON local...'
+    : `${visibleProducts.length} producto(s) visibles en ${categoryText}${search ? ' con busqueda activa' : ''}.`
 
   return (
     <>
@@ -24,7 +28,7 @@ function ProductSection({
         <div className="col-lg-8">
           <p className="text-uppercase section-label mb-2">Catalogo React</p>
           <h2 className="h1 fw-bold">Productos destacados</h2>
-          <p className="mb-0 text-muted-custom">Listado de productos renderizado con componentes funcionales, estado y eventos de React.</p>
+          <p className="mb-0 text-muted-custom">Listado cargado dinamicamente desde JSON local con useEffect, estado y eventos de React.</p>
         </div>
         <div className="col-lg-4">
           <p className="catalog-summary mb-0" aria-live="polite">{summary}</p>
@@ -66,7 +70,16 @@ function ProductSection({
         </div>
       </div>
 
-      {visibleProducts.length === 0 ? (
+      {isLoading ? (
+        <div className="catalog-state" role="status" aria-live="polite">
+          <div className="spinner-border text-brand" aria-hidden="true" />
+          <p className="mb-0 fw-semibold">Cargando productos desde data/products.json...</p>
+        </div>
+      ) : error ? (
+        <div className="alert alert-danger" role="alert">
+          {error}
+        </div>
+      ) : visibleProducts.length === 0 ? (
         <div className="alert alert-warning" role="status">
           No hay productos que coincidan con la busqueda o categoria seleccionada.
         </div>

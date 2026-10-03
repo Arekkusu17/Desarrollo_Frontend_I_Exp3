@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Benefits from './components/Benefits.jsx'
 import CartSummary from './components/CartSummary.jsx'
 import Categories from './components/Categories.jsx'
@@ -7,14 +7,48 @@ import Footer from './components/Footer.jsx'
 import Header from './components/Header.jsx'
 import Hero from './components/Hero.jsx'
 import ProductSection from './components/ProductSection.jsx'
-import { products } from './data/products.js'
+import { assetPath } from './utils/assets.js'
 import { normalizeText } from './utils/format.js'
 
 function App() {
+  const [products, setProducts] = useState([])
+  const [isLoadingProducts, setIsLoadingProducts] = useState(true)
+  const [productsError, setProductsError] = useState('')
   const [cart, setCart] = useState([])
   const [category, setCategory] = useState('Todos')
   const [search, setSearch] = useState('')
   const [statusMessage, setStatusMessage] = useState('')
+
+  useEffect(() => {
+    // Carga dinamica solicitada en Semana 8: los productos vienen desde un JSON local.
+    async function loadProducts() {
+      try {
+        const response = await fetch(assetPath('data/products.json'))
+
+        if (!response.ok) {
+          throw new Error('No se pudo cargar el catalogo de productos.')
+        }
+
+        const data = await response.json()
+        const productsWithAssets = data.map((product) => ({
+          ...product,
+          imagen: assetPath(product.imagen),
+          imagenMobile: assetPath(product.imagenMobile),
+        }))
+
+        setProducts(productsWithAssets)
+        setProductsError('')
+        setStatusMessage(`Catalogo cargado dinamicamente con ${productsWithAssets.length} productos.`)
+      } catch (error) {
+        setProductsError(error.message)
+        setStatusMessage('Revisa la conexion o intenta recargar la pagina.')
+      } finally {
+        setIsLoadingProducts(false)
+      }
+    }
+
+    loadProducts()
+  }, [])
 
   const visibleProducts = useMemo(() => {
     const normalizedSearch = normalizeText(search)
@@ -26,7 +60,7 @@ function App() {
 
       return matchesCategory && matchesSearch
     })
-  }, [category, search])
+  }, [category, products, search])
 
   const totalItems = cart.reduce((sum, item) => sum + item.cantidad, 0)
   const totalPrice = cart.reduce((sum, item) => sum + item.precioOferta * item.cantidad, 0)
@@ -34,6 +68,7 @@ function App() {
   function addToCart(product) {
     const cartItem = cart.find((item) => item.id === product.id)
 
+    // El carrito respeta el stock disponible y actualiza cantidades con useState.
     if (cartItem?.cantidad >= product.stock) {
       setStatusMessage(`No puedes agregar mas unidades de ${product.nombre}; el stock disponible es ${product.stock}.`)
       return
@@ -100,6 +135,8 @@ function App() {
                   search={search}
                   cart={cart}
                   statusMessage={statusMessage}
+                  isLoading={isLoadingProducts}
+                  error={productsError}
                   onCategoryChange={handleCategoryChange}
                   onSearchChange={setSearch}
                   onClearSearch={clearSearch}

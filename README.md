@@ -1,93 +1,96 @@
 # TechNova Store
 
-Actividad sumativa de la Semana 6 para Desarrollo Frontend I. El proyecto implementa una pagina eCommerce responsiva con Bootstrap 5 y JavaScript, usando datos desde un archivo JSON local, busqueda dinamica, manipulacion del DOM y carrito de compras.
+Actividad sumativa de la Semana 8 para Desarrollo Frontend I. El proyecto implementa un eCommerce en React con carga dinamica de productos, gestion de carrito y renderizado condicional.
 
 ## Descripcion
 
-TechNova Store presenta un catalogo de productos tecnologicos cargado dinamicamente desde `assets/data/productos.json`. La interfaz permite buscar productos mientras se escribe, filtrar por categorias simuladas, agregar productos al carrito, controlar cantidades sin superar el stock disponible y visualizar el total de compra.
+TechNova Store presenta un catalogo de productos tecnologicos cargado desde `public/data/products.json` mediante `useEffect`. La interfaz permite buscar y filtrar productos, agregar o eliminar unidades del carrito, controlar stock disponible y visualizar el total de compra.
 
 ## Tecnologias utilizadas
 
-- HTML5
+- React
+- Vite
+- Bootstrap 5
 - CSS3
-- Bootstrap 5 por CDN
-- JavaScript
-- Fetch API
 - JSON local
-- Imagenes locales en JPG y WebP
+- GitHub Pages
 
 ## Funcionalidades principales
 
-- Navbar responsiva con Bootstrap 5.
-- Carrusel promocional con imagenes locales.
-- Categorias simuladas para productos.
-- Cards de productos renderizadas dinamicamente.
-- Busqueda de productos mediante formulario con evento `submit`.
-- Busqueda instantanea con evento `input`.
-- Evento `click` para agregar productos al carrito.
-- Carrito dinamico con cantidades, total y validacion de stock.
-- Botones para sumar, restar y vaciar productos del carrito.
-- Manejo de errores si el archivo JSON no carga correctamente.
-- Formulario de contacto validado con JavaScript.
-- Codigo separado en HTML, CSS, JavaScript, JSON e imagenes.
+- Componentes funcionales separados por responsabilidad.
+- Carga dinamica del catalogo con `useEffect` y `fetch`.
+- Estado del catalogo, carrito, busqueda, categoria, carga y error con `useState`.
+- Busqueda instantanea por nombre, categoria o descripcion.
+- Filtros por categoria.
+- Carrito de compras con agregar, restar, eliminar y vaciar productos.
+- Validacion de stock para evitar agregar mas unidades de las disponibles.
+- Renderizado condicional para carga, error, busqueda sin resultados, carrito vacio y productos agregados.
+- Rutas de imagenes compatibles con despliegue en GitHub Pages.
 
 ## Estructura del proyecto
 
 ```text
-Desarrollo_Frontend_I_Exp2/
+Desarrollo_Frontend_I_Exp3/
+├── public/
+│   ├── assets/
+│   │   └── img/
+│   └── data/
+│       └── products.json
+├── screenshots/
+├── src/
+│   ├── components/
+│   ├── utils/
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── styles.css
 ├── index.html
-├── README.md
-├── assets/
-│   ├── css/
-│   │   └── styles.css
-│   ├── data/
-│   │   └── productos.json
-│   ├── img/
-│   │   ├── hero/
-│   │   └── products/
-│   └── js/
-│       └── app.js
-└── screenshots/
-    ├── desktop.png
-    ├── busqueda.png
-    ├── carrito.png
-    └── mobile.png
+├── package.json
+├── vite.config.js
+└── README.md
 ```
 
 ## Como ejecutar el proyecto
 
-Para que Fetch API cargue correctamente el archivo JSON, se recomienda ejecutar el proyecto desde un servidor local o desde GitHub Pages.
+Instala dependencias:
 
 ```bash
-python3 -m http.server 8000
+npm install
 ```
 
-Luego abre:
+Ejecuta el servidor local:
 
-```text
-http://localhost:8000
+```bash
+npm run dev
 ```
 
-## Capturas de pantalla
+Genera una version de produccion:
 
-### Vista principal en escritorio
-
-![Vista principal en escritorio](screenshots/desktop.png)
-
-### Busqueda de productos
-
-![Busqueda de productos](screenshots/busqueda.png)
-
-### Carrito de compras
-
-![Carrito de compras](screenshots/carrito.png)
-
-### Vista movil
-
-![Vista movil](screenshots/mobile.png)
+```bash
+npm run build
+```
 
 ## Publicacion
 
-- Repositorio GitHub: [Enlace Directo](https://github.com/Arekkusu17/Desarrollo_Frontend_I_Exp2)
-- Sitio publicado: [GitHub Pages](https://arekkusu17.github.io/Desarrollo_Frontend_I_Exp2/)
+El proyecto esta preparado para GitHub Pages con:
 
+- `base: '/Desarrollo_Frontend_I_Exp3/'` en `vite.config.js`
+- script `deploy` con `gh-pages -d dist`
+
+Para publicar:
+
+```bash
+npm run build
+npm run deploy
+```
+
+Repositorio GitHub:
+
+```text
+https://github.com/Arekkusu17/Desarrollo_Frontend_I_Exp3
+```
+
+Sitio publicado:
+
+```text
+https://arekkusu17.github.io/Desarrollo_Frontend_I_Exp3/
+```
