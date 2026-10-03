@@ -4,7 +4,7 @@ function ProductCard({ product, cartItem, onAdd, onRemove }) {
   const isInCart = Boolean(cartItem)
   const available = cartItem ? cartItem.cantidad < product.stock : true
   const buttonText = !available
-    ? 'Stock completo'
+    ? 'Stock Insuficiente'
     : isInCart
       ? `Agregar otra unidad (${cartItem.cantidad})`
       : 'Agregar al carrito'
