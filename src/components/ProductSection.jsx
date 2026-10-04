@@ -54,7 +54,7 @@ function ProductSection({
     <>
       <div className="row align-items-end mb-4 g-3">
         <div className="col-lg-8">
-          <p className="text-uppercase section-label mb-2">Catalogo React</p>
+          <p className="text-uppercase section-label mb-2">Catalogo</p>
           <h2 className="h1 fw-bold">Productos destacados</h2>
         </div>
         <div className="col-lg-4">

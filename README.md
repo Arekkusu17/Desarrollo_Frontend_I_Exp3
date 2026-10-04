@@ -13,6 +13,7 @@ TechNova Store presenta un catalogo de productos tecnologicos cargado desde `pub
 - Bootstrap 5
 - CSS3
 - JSON local
+- React Loading Skeleton
 - GitHub Pages
 
 ## Funcionalidades principales
@@ -20,11 +21,13 @@ TechNova Store presenta un catalogo de productos tecnologicos cargado desde `pub
 - Componentes funcionales separados por responsabilidad.
 - Carga dinamica del catalogo con `useEffect` y `fetch`.
 - Estado del catalogo, carrito, busqueda, categoria, carga y error con `useState`.
+- Skeleton loading mientras se cargan los productos para evitar saltos visuales.
 - Busqueda instantanea por nombre, categoria o descripcion.
 - Filtros por categoria.
 - Carrito de compras con agregar, restar, eliminar y vaciar productos.
 - Validacion de stock para evitar agregar mas unidades de las disponibles.
-- Renderizado condicional para carga, error, busqueda sin resultados, carrito vacio y productos agregados.
+- Mensaje `Stock Insuficiente` cuando el producto ya alcanzo el maximo disponible en el carrito.
+- Renderizado condicional para carga, error, busqueda sin resultados, carrito vacio, productos agregados y stock insuficiente.
 - Rutas de imagenes compatibles con despliegue en GitHub Pages.
 
 ## Estructura del proyecto
@@ -68,6 +71,30 @@ Genera una version de produccion:
 ```bash
 npm run build
 ```
+
+## Evidencias para entrega
+
+Las siguientes capturas deben agregarse en la carpeta `screenshots/` antes de entregar en AVA.
+
+### Catalogo cargado dinamicamente
+
+![Catalogo cargado dinamicamente](screenshots/catalogo-cargado.png)
+
+### Carrito funcionando
+
+![Carrito con producto agregado](screenshots/carrito-producto-agregado.png)
+
+### Renderizado condicional sin resultados
+
+![Busqueda sin resultados](screenshots/busqueda-sin-resultados.png)
+
+### Stock insuficiente
+
+![Producto con stock insuficiente](screenshots/stock-insuficiente.png)
+
+### Vista responsive
+
+![Vista responsive movil](screenshots/vista-responsive.png)
 
 ## Publicacion
 
